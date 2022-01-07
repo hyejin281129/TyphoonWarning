@@ -4,13 +4,25 @@ import Joi from 'joi';
 
 const { ObjectId } = mongoose.Types;
 
-export const checkObjectId = (ctx, next) => {
+// 포스터 수정 삭제 권한
+export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
   if (!ObjectId.isValid(id)) {
     ctx.status = 400; // Bad Request
     return;
   }
-  return next();
+  try {
+    const post = await Post.findById(id);
+    // 포스트가 존재하지 않을 때
+    if (!post) {
+      ctx.status = 404; // Not Found
+      return;
+    }
+    ctx.state.post = post;
+    return next();
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
 
 
@@ -46,6 +58,8 @@ export const write = async ctx => {
     title,
     body,
     tags,
+    // 사용자
+    user: ctx.state.user,
   });
   try {
     await post.save();
@@ -56,7 +70,7 @@ export const write = async ctx => {
 };
 
 /* 포스트 목록 조회
-GET /api/posts
+GET /api/posts?username=&tag=&page=
 */
 export const list = async ctx => {
   // query는 문자열이기 때문에 숫자로 변환해 주어야 합니다.
@@ -67,9 +81,20 @@ export const list = async ctx => {
     ctx.status = 400;
     return;
   }
+
+  /*
+   특정 사용자가 작성한 포스트만 조회하거나
+   특정 태그가 있는 포스트만 조회하는 기능
+  */
+  const { tag, username } = ctx.query;
+  // tag, username 값이 유효하면 객체 안에 넣고 그렇지 않으면 넣지 않음
+  const query = {
+    ...(username ? { 'user.username': username } : {}), 
+    ...(tag ? { tags: tag } : {}),
+  } 
   
   try {
-    const posts = await Post.find()
+    const posts = await Post.find(query)
       .sort({ _id: -1 })
       // 페이지 10개씩 보여주기
       .limit(10)
@@ -79,7 +104,7 @@ export const list = async ctx => {
       .lean()
       .exec();
     // 마지막 페이지 번호 알려주기
-    const postCount = await Post.countDocuments().exec();
+    const postCount = await Post.countDocuments(query).exec();
     ctx.set('Last-Page', Math.ceil(postCount / 10));
     ctx.body = posts.map(post => ({
       // 내용 길이 200자로 제한
@@ -96,17 +121,20 @@ export const list = async ctx => {
 GET /api/posts/:id
 */
 export const read = async ctx => {
-  const { id } = ctx.params;
-  try {
-    const post = await Post.findById(id).exec();
-    if (!post) {
-      ctx.status = 404; // Not Found
-      return;
-    }
-    ctx.body = post;
-  } catch (e) {
-    ctx.throw(500, e);
-  }
+  // 미들 웨어를 이용해 코드 간소화
+  ctx.body = ctx.state.post;
+  // 이전내용
+  // const { id } = ctx.params;
+  // try {
+  //   const post = await Post.findById(id).exec();
+  //   if (!post) {
+  //     ctx.status = 404; // Not Found
+  //     return;
+  //   }
+  //   ctx.body = post;
+  // } catch (e) {
+  //   ctx.throw(500, e);
+  // }
 };
 
 /* 특정 포스트 제거
@@ -162,3 +190,15 @@ export const update = async ctx => {
     ctx.throw(500, e);
   }
 };
+
+/*
+  id로 찾은 포스트가 로그인 중인 사용자가 작성한 포스트인지 확인
+*/
+export const checkOwnPost = (ctx, next) => {
+  const { user, post } = ctx.state;
+  if (post.user._id.toString() !== user._id ) {
+    cts.status = 403;
+    return;
+  }
+  return next();
+}

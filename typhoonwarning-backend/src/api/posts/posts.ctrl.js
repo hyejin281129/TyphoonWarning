@@ -1,8 +1,41 @@
+/**
+ * 생성일자 : null
+ * HTML 필터링 적용 ( 2022. 01. 08 )
+ * yarn add sanitize-html 설치
+ * 
+ */
+
 import Post from "../../models/post"; 
 import mongoose from "mongoose";
 import Joi from 'joi';
+import sanitizeHtml from "sanitize-html";
 
 const { ObjectId } = mongoose.Types;
+
+// 특정 태그와 특정 속성만 허용시킨다.
+const sanitizeOption = {
+  allowedTags: [
+    'h1',
+    'h2',
+    'b',
+    'i',
+    'u',
+    's',
+    'p',
+    'ul',
+    'ol',
+    'li',
+    'blockquote',
+    'a',
+    'img',
+  ],
+  allowedAttributes: {
+    a: ['href', 'name', 'target'],
+    img: ['src'],
+    li: ['class'],
+  },
+  allowedSchemes: ['data', 'http'],
+};
 
 // 포스터 수정 삭제 권한
 export const getPostById = async (ctx, next) => {
@@ -56,7 +89,7 @@ export const write = async ctx => {
   const { title, body, tags } = ctx.request.body;
   const post = new Post({
     title,
-    body,
+    body: sanitizeHtml(body, sanitizeOption),
     tags,
     // 사용자
     user: ctx.state.user,
@@ -67,6 +100,14 @@ export const write = async ctx => {
   } catch (e) {
     ctx.throw(500, 2);
   }
+};
+
+// html을 없애고 내용이 너무 길면 200자로 제안하는 함수
+const removeHtmlAndShorten = body => {
+  const filtered = sanitizeHtml(body, {
+    allowedTags: [],
+  });
+  return filtered.length < 200 ? filtered : `${filtered.slice(0, 200)}...`;
 };
 
 /* 포스트 목록 조회
@@ -109,8 +150,7 @@ export const list = async ctx => {
     ctx.body = posts.map(post => ({
       // 내용 길이 200자로 제한
       ...post,
-      body:
-        post.body.lenght < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+      body: removeHtmlAndShorten(post.body),
     }));
   } catch (e) {
     ctx.throw(500, e);
@@ -176,6 +216,13 @@ export const update = async ctx => {
     ctx.body = result.error;
     return;
   }
+  
+  // 객체를 복사한 후 body 값이 주어졌다면 HTML 필터링
+  const nextData = { ...ctx.request.body };
+  if (nextData.body) {
+    nextData.body = sanitizeHtml(nextData.body, sanitizeOption);
+  }
+
   try {
     const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
       new: true, // 이 값을 설정하면 업데이트된 데이터를 반환합니다.
@@ -191,9 +238,7 @@ export const update = async ctx => {
   }
 };
 
-/*
-  id로 찾은 포스트가 로그인 중인 사용자가 작성한 포스트인지 확인
-*/
+// id로 찾은 포스트가 로그인 중인 사용자가 작성한 포스트인지 확인
 export const checkOwnPost = (ctx, next) => {
   const { user, post } = ctx.state;
   if (post.user._id.toString() !== user._id ) {
@@ -202,3 +247,4 @@ export const checkOwnPost = (ctx, next) => {
   }
   return next();
 }
+

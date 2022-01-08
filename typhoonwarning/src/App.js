@@ -11,12 +11,15 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route element={<PostListPage />} path="/@:username" />
-        <Route element={<PostListPage />} path="/" />
-        <Route element={<LoginPage />} path="/login" />
-        <Route element={<RegisterPage />} path="/register" />
-        <Route element={<WritePage />} path="/write"/>
-        <Route element={<PostPage />} path="/@:username/:postId" />
+        <Route path="/" element={<PostListPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/write" element={<WritePage />} />
+        <Route path="/@:username">
+          <Route index element={<PostListPage />} />
+        {/* <Route path="/@:username/:postId" element={<PostPage />}  /> */}
+          <Route path=":postId" element={<PostPage />} />
+        </Route>
       </Routes>
     </>
   );

@@ -11,10 +11,9 @@ import { changeField, initializeForm, register } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
 import { check } from '../../modules/user';
 import { useNavigate } from 'react-router-dom';
-import { set } from "../../../node_modules/jsonpointer/jsonpointer";
 
 // history 값을 넣어준다.
-const RegisterForm = ({ history }) => {
+const RegisterForm = () => {
   const dispatch = useDispatch();
   // error의 값을 쓰기 위한 state 선언
   const [ error, setError] = useState(null);
@@ -27,7 +26,7 @@ const RegisterForm = ({ history }) => {
   const navigate = useNavigate();
 
   // 인풋 변경 이벤트 핸들러
-  const onChange = e => {
+  const onChange = (e) => {
     const { value, name } = e.target;
     dispatch(
       changeField({
@@ -39,7 +38,7 @@ const RegisterForm = ({ history }) => {
   };
 
   // 폼 등록 이벤트 핸들러
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const { username, password, passwordConfirm } = form;
     // 하나라도 비어 있다면
@@ -88,8 +87,6 @@ const RegisterForm = ({ history }) => {
   useEffect(() => {
     if(user){
       // 회원가입 성공시 홈 화면으로 이동
-      console.log('check API 성공');
-      console.log(user);
       navigate('/');
       // 로그인 상태 유지
       try {
@@ -98,7 +95,7 @@ const RegisterForm = ({ history }) => {
         console.log('localStorage is not working');
       }
     }
-  }, [history, user]);
+  }, [navigate, user]);
 
   return(
     <AuthForm

@@ -14,7 +14,7 @@ import { check } from '../../modules/user';
 
 
 
-const LoginForm = ({ history }) => {
+const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ const LoginForm = ({ history }) => {
     }));
 
     // 인풋 변경 이벤트 핸들러
-    const onChange = e => {
+    const onChange = (e) => {
       const { value, name } = e.target;
       dispatch(
         changeField({
@@ -39,7 +39,7 @@ const LoginForm = ({ history }) => {
     };
 
     // 폼 등록 이벤트 핸들러
-    const onSubmit = e => {
+    const onSubmit = (e) => {
       e.preventDefault();
       const { username, password } = form;
       dispatch(login({ username, password }));
@@ -66,7 +66,7 @@ const LoginForm = ({ history }) => {
     // 문제가 있을지도 모름. 후에 문제 생기면 여기 확인할 것
     useEffect(() => {
       if (user) {
-        navigate('../');
+        navigate('/');
         // 로그인 유지하가ㅣ
         try {
           localStorage.setItem('user', JSON.stringify(user));
@@ -74,7 +74,7 @@ const LoginForm = ({ history }) => {
           console.log('localStorage is not working');
         }
       }
-    }, [history, user]);
+    }, [navigate, user]);
 
     return(
         <AuthForm

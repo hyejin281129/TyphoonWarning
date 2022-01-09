@@ -6,7 +6,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import InfoImg from "../../image/InfoImage.jpg";
+import InfoImg from "../../image/info/InfoImage.jpg";
 
 
  // 인포메이션 그림

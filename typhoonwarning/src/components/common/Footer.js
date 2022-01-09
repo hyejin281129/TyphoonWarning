@@ -32,7 +32,7 @@ const Footer = () => {
     <>
       <FooterBlock>
         <Wrapper>
-        태풍주의보 @제1회 2021. 10. 31.
+        @2022 태풍주의보
         </Wrapper>
       </FooterBlock>
     </>

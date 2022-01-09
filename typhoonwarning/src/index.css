@@ -45,6 +45,6 @@ code {
     monospace; */
 }
 
-button:disabled {
-  font-family: 'Pretendard-Regular';
+button {
+  all : unset;
 }

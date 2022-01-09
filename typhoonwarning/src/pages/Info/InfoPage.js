@@ -6,18 +6,18 @@
  */
 
 import React from "react";
-// import PostViewer from "../components/post/PostViewer";
 import HeaderContainer from "../../containers/common/HeaderContainer";
-import PostViewerContainer from "../../containers/post/PostViewerContainer";
+import InfoContainer from "../../containers/common/InfoContainer";
+import FooterContainer from "../../containers/common/FooterContainer";
 
-const PostPage = () => {
+const InfoPage = () => {
     return (
         <> 
             <HeaderContainer />
-            {/* <PostViewer /> */}
-            <PostViewerContainer />
+            <InfoContainer />      
+            <FooterContainer />
         </>
     );
 };
 
-export default PostPage;
+export default InfoPage;

@@ -5,9 +5,9 @@
  */
 
  import React from "react";
- import HeaderContainer from "../containers/common/HeaderContainer";
- import FooterContainer from "../containers/common/FooterContainer";
- import EventContainer from "../containers/event/EventContainer"
+ import HeaderContainer from "../../containers/common/HeaderContainer";
+ import FooterContainer from "../../containers/common/FooterContainer";
+ import EventContainer from "../../containers/event/EventContainer"
  
  
  const Event = () => {

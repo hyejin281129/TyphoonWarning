@@ -59,6 +59,7 @@ display: flex;
 }
 `;
 
+
 const Li = styled.li`
   margin: 0 30px;
   color: black;
@@ -75,10 +76,9 @@ const Spacer = styled.div`
 const UserInfo = styled.div`
   font-weight: 800;
   margin-right: 1rem;
+`;
 
-  
 
-`
 
 // user값이 주어졌을 경우 로그아웃 버튼을 보여준다.
 // 로그아웃 버튼을 누르면 로그아웃에 해당하는 함수를 호출시킨다.
@@ -93,9 +93,9 @@ const Header = ({ user, onLogout }) => {
           </Link>
           {/* 메뉴 */}
           <Ul>
-            <Li><Link to="/Event">이전 행사</Link></Li>
-            <Li><Link to="">공지 사항</Link></Li>
-            <Li><Link to="">문의 사항</Link></Li>
+            <Li><Link to="/event">행사 목록</Link></Li>
+            <Li><Link to="/notice">공지 사항</Link></Li>
+            <Li><Link to="/questions">문의 사항</Link></Li>
           </Ul>
           {/* 로그인 / 로그아웃 */}
           { user ? (

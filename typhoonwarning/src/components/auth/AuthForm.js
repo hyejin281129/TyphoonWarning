@@ -8,24 +8,36 @@ import Button from '../common/Button';
  * 회원가입 및 로그인 폼
  */
 
+// 이런식으로!!! 이해함
 const AuthFormBlock = styled.div`
   h3 {
     margin: 0;
-    color: ${palette.gray[8]};
+    color: #101010;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 56px;
+    text-align: center;
     margin-bottom: 1rem;
+  }
+  form {
+    width: 478px;
+    margin: 0 auto;
   }
 `;
 
-/**
- * 스타일링된 input
- */
+
+// 로그인 폼
 const StyledInput = styled.input`
-  font-size: 1rem;
-  border: none;
-  border-bottom: 1px solid ${palette.gray[5]};
-  padding-bottom: 0.5rem;
-  outline: none;
   width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #ccc;
+  color: #101010;
+  margin-bottom: 10px;
+  // 원본
+  font-size: 1rem;
+  border: 1px solid ${palette.gray[5]};
+  outline: none;
   &:focus {
     color: $oc-teal-7;
     border-bottom: 1px soild ${palette.gray[7]};
@@ -33,6 +45,7 @@ const StyledInput = styled.input`
   & + & {
     margin-top: 1rem;
   }
+  
 `;
 
 /**
@@ -53,6 +66,7 @@ const Footer = styled.div`
 /* button 스타일 */
 const ButtonWithMarginTop = styled(Button)`
   margin-top: 1rem;
+  padding: 1rem 0;
 `;
 
 /* type props에 따라 다른내용 보여주기 */
@@ -101,7 +115,7 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
             type="password"
             onChange={onChange}
             value={form.passwordConfirm}
-          ></StyledInput>
+          />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <ButtonWithMarginTop cyan fullWidth>
@@ -110,9 +124,9 @@ const AuthForm = ({ type, form, onChange, onSubmit, error }) => {
       </form>
       <Footer>
         {type === 'login' ? (
-          <Link to="/register">회원가입</Link>
+          <Link to="/register">회원이 아니신가요?</Link>
         ) : (
-          <Link to="/login">로그인</Link>
+          <Link to="/login">이미 회원이신가요?</Link>
         )}
       </Footer>
     </AuthFormBlock>

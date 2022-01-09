@@ -17,9 +17,10 @@ const buttonStyle = css`
   color: white;
   outline: none;
   cursor: pointer;
-  background: rgb(134, 145, 207);
+  text-align: center;
+  background: rgb(134, 145, 207) !important;
   &:hover {
-    background: rgb(172, 165, 206);
+    background: rgb(172, 165, 206) !important;
   }
   &:disabled {
     background: ${palette.gray[3]};

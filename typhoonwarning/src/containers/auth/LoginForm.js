@@ -77,6 +77,8 @@ const LoginForm = () => {
     }, [navigate, user]);
 
     return(
+      <>
+        
         <AuthForm
           type="login"
           form={form}
@@ -85,6 +87,7 @@ const LoginForm = () => {
           error={error}
         >
         </AuthForm>
+      </>
     );
 };
 

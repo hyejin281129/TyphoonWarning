@@ -1,7 +1,7 @@
 /**
  * 회원가입 페이지의 레이아웃을 담당하는 컴포넌트.
  * 
- * 2022. 01. 07 : 로그인 상태 유지 기능 추가
+ * 로그인 상태 유지 기능 추가 ( 22. 01. 07 )
  */
 
 
@@ -15,15 +15,15 @@ import { useNavigate } from 'react-router-dom';
 // history 값을 넣어준다.
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // error의 값을 쓰기 위한 state 선언
   const [ error, setError] = useState(null);
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.register,
     auth: auth.auth,
     authError: auth.authError,
-    user: user.user
+    user: user.user,
   }));
-  const navigate = useNavigate();
 
   // 인풋 변경 이벤트 핸들러
   const onChange = (e) => {
@@ -32,7 +32,7 @@ const RegisterForm = () => {
       changeField({
         form: 'register',
         key: name,
-        value
+        value,
       })
     );
   };
@@ -41,12 +41,12 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { username, password, passwordConfirm } = form;
-    // 하나라도 비어 있다면
+    // 하나라도 비어 있을경우
     if([username, password, passwordConfirm].includes('')) {
       setError('빈 칸을 모두 입력하세요.');
       return;
     }
-    // 비밀번호 확인과 비밀번호가 일치하지 않는다면
+    // 비밀번호 확인
     if(password !== passwordConfirm){
       setError('비밀번호가 일치하지 않습니다.');
       dispatch(changeField({ form: 'register', key: 'password', value: '' }));

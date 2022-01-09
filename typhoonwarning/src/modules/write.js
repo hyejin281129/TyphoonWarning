@@ -111,7 +111,7 @@ const write = handleActions(
       post,
     }),
     // 포스트 수정 실패
-    [UPDATE_POST_SUCCESS]: (state, { payload: postError }) => ({
+    [UPDATE_POST_FAILURE]: (state, { payload: postError }) => ({
       ...state,
       postError,
     }),

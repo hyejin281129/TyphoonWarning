@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from "react";
-import qs from 'qs';
+// import qs from 'qs';
 // useSearchParmas 로 변경되었음
 import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

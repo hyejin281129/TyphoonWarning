@@ -36,7 +36,7 @@ const PostItemBlock = styled.div`
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.25rem;
     margin-bottom: 0;
     margin-top: 0;
     &:hover {
@@ -53,14 +53,15 @@ const PostItem = ({ post }) => {
   const { publishedDate, user, tags, title, body, _id } = post;
   return (
     <PostItemBlock>
-      <h2>제목</h2>
-      <Link to={`/@${user.username}/${_id}`}>{title}</Link>
+      <h2>
+        <Link to={`/@${user.username}/${_id}`}>{title}</Link>
+      </h2>
       <SubInfo
         username={user.username}
         publishedDate={new Date(publishedDate)}
       />
       <Tags tags={tags} />
-      <p>{body}</p>
+      {/* <p>{body}</p> */}
     </PostItemBlock>
   );
 };

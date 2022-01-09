@@ -1,11 +1,11 @@
 /**
  * 로그인 페이지의 레이아웃을 담당하는 컴포넌트.
  * 
- * 2022. 01. 07 : 로그인 상태 유지 기능 추가
+ * 로그인 상태 유지 기능 추가 ( 22. 01 .07. )
  */
 
 import React, { useEffect, useState } from 'react';
-/* 컴포넌트를 리덕스와 연동시킨다 */
+/* 컴포넌트를 리덕스와 연동 */
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { changeField, initializeForm, login } from '../../modules/auth';
@@ -23,7 +23,7 @@ const LoginForm = () => {
       form: auth.login,
       auth: auth.auth,
       authError: auth.authError,
-      user: user.user
+      user: user.user,
     }));
 
     // 인풋 변경 이벤트 핸들러
@@ -33,7 +33,7 @@ const LoginForm = () => {
         changeField({
           form: 'login',
           key: name,
-          value
+          value,
         })
       );
     };

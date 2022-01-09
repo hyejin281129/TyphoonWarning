@@ -2,8 +2,8 @@
  * 
  * 생성일자 : 2022. 01. 08.
  * 
- * postviewer를 위한 컨테이너 컴포넌트 제작 ( 2022. 01. 08. )
- * 
+ * postviewer를 위한 컨테이너 컴포넌트 제작 ( 22. 01. 08. )
+ * removePost를 사용하기 위한 api 호출 ( 22. 01. 09. )
  * 
  */
 
@@ -44,6 +44,7 @@ const PostViewerContainer = () => {
     navigate('/write');
   };
 
+  // 포스트 삭제
   const onRemove = async () => {
     try {
       await removePost(postId);

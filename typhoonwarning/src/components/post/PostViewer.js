@@ -1,9 +1,10 @@
 /**
- * 
- * 생성일자 : 2022. 01. 08.
+ * 생성일자 : 22. 01. 08.
  * PostViewer 컴포넌트
- * porps를 사용할 수 있도록 변경 (2022. 01. 08)
- * SubInfo와 Tags 컴포넌트를 재사용 할 수 있도록 변경 (2022. 01. 08)
+ * porps를 사용할 수 있도록 변경 ( 22. 01. 08. )
+ * SubInfo와 Tags 컴포넌트를 재사용 할 수 있도록 변경 ( 22. 01. 08. )
+ * meta 변경하기 ( 22. 01. 09. )
+ * 
  */
 
 import React from 'react';
@@ -12,6 +13,7 @@ import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive'; 
 import SubInfo from '../common/SubInfo';
 import Tags from '../common/Tags';
+import { Helmet } from 'react-helmet-async'; 
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -51,6 +53,9 @@ const PostViewer = ({ post, error, loading, actionButtons }) => {
   
   return (
     <PostViewerBlock>
+      <Helmet>
+        <title>태풍주의보</title>
+      </Helmet>
       <PostHead>
         <h1>{title}</h1>
         <SubInfo

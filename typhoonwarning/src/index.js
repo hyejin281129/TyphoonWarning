@@ -1,7 +1,6 @@
 /**
  * 생성일자 : null
  * index.js에서 사용자 정보를 불러오도록 처리함 ( 22. 01. 07. )
- * meta 설정을 위한 react-helmet-async 설치 ( 22. 01. 09. )
  * 
  */
 
@@ -18,7 +17,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer, { rootSaga } from './modules';
 import { tempSetUser, check } from './modules/user';
-import { HelmetProvider } from 'react-helmet-async';
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -45,10 +43,8 @@ loadUser();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <HelmetProvider>
-        <App />
-      </HelmetProvider>
-    </BrowserRouter>,
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
 );

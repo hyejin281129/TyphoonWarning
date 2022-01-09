@@ -2,7 +2,7 @@
  * 생성일자 : 2022. 01. 07.
  * 글쓰기 상태 관리 리덕스
  * 글쓰기 API 호출 ( 2022. 01. 07. )
- * 
+ * 포스트수정 API 호출 ( 2022. 01. 09. )
  */
 
 import { createAction, handleActions } from "redux-actions";
@@ -97,7 +97,7 @@ const write = handleActions(
       ...state,
       postError,
     }),
-    // 포스트 수정(
+    // 포스트 수정시 내용 보여주기
     [SET_ORIGINAL_POST]: (state, { payload: post }) => ({
       ...state,
       title: post.title,

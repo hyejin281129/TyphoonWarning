@@ -43,4 +43,4 @@ export const updatePost = ({ id, title, body, tags }) =>
   });
 
 // 포스트 삭제
-export const removePost = (id) => client.delte(`/api/posts/${id}`);
+export const removePost = (id) => client.delete(`/api/posts/${id}`);

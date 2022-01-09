@@ -1,7 +1,6 @@
 /**
  * 생성일자 : null
  * 
- * meta 수정 ( 22. 01. 09. )
  */
 
 
@@ -13,19 +12,21 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WritePage from './pages/WritePage';
 import PostPage from './pages/PostPage';
-import { Helmet } from 'react-helmet-async';
+import Event from './pages/Event';
 
 const App = () => {
   return (
     <>
-      <Helmet>
-        <title>태풍주의보</title>
-      </Helmet>
       <Routes>
         <Route path="/" element={<PostListPage />} />
+        {/* 로그인 회원가입 */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        {/* 이전 행사 */}
+        <Route path="/Event" element={<Event />} />
+        {/* 문의 사항 */}
         <Route path="/write" element={<WritePage />} />
+        {/* 마이페이지 */}
         <Route path="/@:username">
           <Route index element={<PostListPage />} />
         {/* <Route path="/@:username/:postId" element={<PostPage />}  /> */}

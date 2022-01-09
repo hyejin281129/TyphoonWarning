@@ -6,7 +6,7 @@
 
 import React, { useEffect } from 'react';
 import WriteActionButtons from '../../components/write/WriteActionButtons';
-import { useNavigate, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { writePost, updatePost } from '../../modules/write';
 

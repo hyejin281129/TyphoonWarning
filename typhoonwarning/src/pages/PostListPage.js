@@ -7,15 +7,20 @@
 
 import React from "react";
 import HeaderContainer from "../containers/common/HeaderContainer";
-import PaginationContainer from "../containers/posts/PaginationContainer";
-import PostListContainer from "../containers/posts/PostListContainer";
+// import PaginationContainer from "../containers/posts/PaginationContainer";
+// import PostListContainer from "../containers/posts/PostListContainer";
+import InfoContainer from "../containers/common/InfoContainer";
+import FooterContainer from "../containers/common/FooterContainer";
+
 
 const PostListPage = () => {
     return (
         <>
             <HeaderContainer />
-            <PostListContainer />
-            <PaginationContainer />
+            <InfoContainer />
+            {/* <PostListContainer /> */}
+            {/* <PaginationContainer /> */}
+            <FooterContainer />
         </>
     );
 };
